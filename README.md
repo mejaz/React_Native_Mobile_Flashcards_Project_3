@@ -25,10 +25,10 @@ The Mobile Flash Cards App works with -
 Steps to launch the App:
 --------------------------------
 1. Launch cmd(in Windows) or Terminal (in MacOS).
-2. Navigate to the folder containing all the files of this repository for the folder frontend.
+2. Navigate to the folder containing all the files of this repository.
 3. Run the command - `yarn install`
 4. Run the command - `yarn start`
-5. The packager will start, giving us options to press 'i' for iOS simulator / 'a' for Android emulator.
+5. The packager will start, and gives us options to press 'i' for iOS simulator / 'a' for Android emulator.
 6. The app is tested for both iOS and Android, choose either i or a.
 
 
