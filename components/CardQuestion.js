@@ -5,6 +5,7 @@ import DeckHome from './DeckHome'
 import CardAnswer from './CardAnswer'
 import { connect } from 'react-redux'
 import { updateScore, resetScore } from '../actions'
+import { setLocalNotification, clearLocalNotification } from '../utils/helper'
 
 class CardQuestion extends Component {
 
@@ -22,9 +23,23 @@ class CardQuestion extends Component {
 	}
 
 	goHome = () => {
+		clearLocalNotification().then(
+			setLocalNotification
+		)
 		this.props.dispatch(resetScore())
 		this.props.navigation.navigate("Decks")
 	}
+
+	restart = () => {
+
+		const deckObj = this.props.navigation.state.params["deckObj"]
+
+		clearLocalNotification().then(
+			setLocalNotification
+		)
+		this.props.dispatch(updateScore({score: 1}))
+		this.props.navigation.navigate('CardQuestion', {deckObj, index: 0})
+	}	
 
 	render() {
 		const index = this.props.navigation.state.params["index"]
@@ -56,9 +71,14 @@ class CardQuestion extends Component {
 				: <View style={styles.container}>
 						<Text style={{fontSize: 30}}>Thanks!! Cards Over.</Text>
 						<Text>Your score is: {this.props.score}</Text>
-						<TouchableOpacity style={styles.btn} onPress={() => this.goHome()} >
-							<Text style={[styles.btnText, {color: 'black'}]}>Go back to Home</Text>
-						</TouchableOpacity>
+						<View>
+							<TouchableOpacity style={styles.btn} onPress={() => this.goHome()} >
+								<Text style={[styles.btnText, {color: 'black'}]}>Back to Decks</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.btn} onPress={() => this.restart()} >
+								<Text style={[styles.btnText, {color: 'black'}]}>Restart Quiz</Text>
+							</TouchableOpacity>
+						</View>
 					</View>
 		)
 	}

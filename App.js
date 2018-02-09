@@ -13,6 +13,7 @@ import { createStore } from 'redux'
 import { Constants } from 'expo'
 import  { FontAwesome }  from '@expo/vector-icons'
 import { teal } from './utils/colors'
+import { setLocalNotification } from './utils/helper'
 
 const Tabs = TabNavigator({
   Decks: {
@@ -61,6 +62,10 @@ function FcStatusBar ({backgroundColor, ...props}) {
 }
 
 export default class App extends Component {
+
+  componentDidMount() {
+    setLocalNotification()
+  }
 
   render() {
     return (
