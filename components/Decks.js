@@ -11,7 +11,7 @@ class Decks extends Component {
 
     getDecks().then((data) => {
       const parsedData = JSON.parse(data)
-      for (var i in parsedData) {
+      for (let i in parsedData) {
         if (parsedData.hasOwnProperty(i)) {
           this.props.dispatch(addDeckAction({ key: i, deck: parsedData[i] }))
         }

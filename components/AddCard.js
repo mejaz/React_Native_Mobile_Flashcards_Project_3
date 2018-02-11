@@ -16,26 +16,31 @@ class AddCard extends Component {
 
 	submitCard = () => {
 
-		if((this.state.question).trim() === "" || (this.state.answer).trim() === "") {
+		let { question, answer } = this.state
+		const { dispatch, navigation } = this.props
+
+		question = question.trim()
+		answer = answer.trim()
+
+		if(question === "" || answer === "") {
 			alert("Question or an Answer cannot be empty!")
 			return
 		}
 
 		const { deckObj } = this.props.navigation.state.params
 		const newCard = {
-			question: this.state.question.trim(),
-			answer: this.state.answer.trim(),
+			question,
+			answer,
 		}
 
 		deckObj.questions.push(newCard)
 
 		addCard({ key: deckObj.title, deck: deckObj })
-		this.props.dispatch(addCardAction({key: deckObj.title, deck: deckObj}))
-		this.props.navigation.goBack()
+		dispatch(addCardAction({key: deckObj.title, deck: deckObj}))
+		navigation.goBack()
 	}
 
 	render() {
-		console.log("in add card")
 		return(
 			<KeyboardAvoidingView style={styles.container}>
 				<TextInput 

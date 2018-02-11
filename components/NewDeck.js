@@ -3,6 +3,7 @@ import { Text, View, TextInput, StyleSheet, KeyboardAvoidingView, TouchableOpaci
 import { addDeck } from '../utils/api'
 import { addDeckAction } from '../actions'
 import { connect } from 'react-redux'
+import DeckHome from './DeckHome'
 
 class NewDeck extends Component {
 	state = {
@@ -11,20 +12,26 @@ class NewDeck extends Component {
 
 	submitNewDeck = () => {
 
-		if ((this.state.deckName).trim() === "") {
+		let { deckName } = this.state
+		const { navigation, dispatch } = this.props
+
+		deckName = deckName.trim()
+
+		if (deckName === "") {
 			alert("Deck name cannot be empty!!")
 			return
 		}
 
 		deckObj = 
 		  {	
-		    title: this.state.deckName.trim(),
+		    title: deckName,
 		    questions: []
 		  }
 
-		addDeck({key: this.state.deckName, deck: deckObj})
-		this.props.dispatch(addDeckAction({key: this.state.deckName, deck: deckObj}))
-		this.props.navigation.goBack()
+		addDeck({key: deckName, deck: deckObj})
+		dispatch(addDeckAction({key: deckName, deck: deckObj}))
+		console.log(deckObj)
+		navigation.navigate('DeckHome', { deckObj: deckObj })
 	}
 
 	render() {

@@ -38,7 +38,9 @@ class DeckHome extends Component {
 										onPress={() => this.props.navigation.navigate('AddCard', {deckObj})}>
 										<Text style={styles.btnText}>Add Card</Text>
 									</TouchableOpacity>
-									<TouchableOpacity style={[styles.btnBorder, {backgroundColor: 'black'}]}>
+									<TouchableOpacity 
+										style={[styles.btnBorder, {backgroundColor: 'black'}]}
+									>
 										<Text 
 											style={[styles.btnText, {color: 'white'}]} 
 											onPress={() => this.props.navigation.navigate('CardQuestion', {deckObj, index: 0})}

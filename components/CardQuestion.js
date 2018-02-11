@@ -23,29 +23,30 @@ class CardQuestion extends Component {
 	}
 
 	goHome = () => {
-		clearLocalNotification().then(
-			setLocalNotification
-		)
+		const deckObj = this.props.navigation.state.params["deckObj"]
+
 		this.props.dispatch(resetScore())
-		this.props.navigation.navigate("Decks")
+		this.props.navigation.navigate("DeckHome", { deckObj })
 	}
 
 	restart = () => {
 
 		const deckObj = this.props.navigation.state.params["deckObj"]
 
+		this.props.dispatch(updateScore({score: 1}))
+		this.props.navigation.navigate('CardQuestion', {deckObj, index: 0})
+	}
+
+	resetNotif =() => {
 		clearLocalNotification().then(
 			setLocalNotification
 		)
-		this.props.dispatch(updateScore({score: 1}))
-		this.props.navigation.navigate('CardQuestion', {deckObj, index: 0})
-	}	
+	}
 
 	render() {
 		const index = this.props.navigation.state.params["index"]
 		const deckObj = this.props.navigation.state.params["deckObj"]
 		const questions = deckObj.questions
-		console.log("score", this.props)
 
 		return (
 
@@ -69,11 +70,12 @@ class CardQuestion extends Component {
 						</View>
 					</View>
 				: <View style={styles.container}>
+						{this.resetNotif()}
 						<Text style={{fontSize: 30}}>Thanks!! Cards Over.</Text>
 						<Text>Your score is: {this.props.score}</Text>
 						<View>
 							<TouchableOpacity style={styles.btn} onPress={() => this.goHome()} >
-								<Text style={[styles.btnText, {color: 'black'}]}>Back to Decks</Text>
+								<Text style={[styles.btnText, {color: 'black'}]}>Back to Deck</Text>
 							</TouchableOpacity>
 							<TouchableOpacity style={styles.btn} onPress={() => this.restart()} >
 								<Text style={[styles.btnText, {color: 'black'}]}>Restart Quiz</Text>
